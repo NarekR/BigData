@@ -37,7 +37,7 @@ class Circle(Shape):
 class CommandLine:
     @staticmethod
     def parse_input():
-        input_str = input("Введите форму и размер (примеры triangle/square/circle 5): ")
+        input_str = input("Введите форму и размер (примеры triangle/square/circle 5)\n ")
         
         parts = input_str.split()
         if len(parts) < 2:
@@ -57,7 +57,7 @@ class CommandLine:
         area = shape.get_area()
         perimeter = shape.get_perimeter()
 
-        print(f"Площадь: {area}, Периметр: {perimeter}")
+        print(f"Это {shape_type} -Площадь: {area}, Периметр: {perimeter}")
 
         change_size = input("Хотите изменить размер фигуры? (yes/no): ")
         if change_size.lower() == "yes":
@@ -67,6 +67,9 @@ class CommandLine:
             perimeter = shape.get_perimeter()
             print(f"Площадь: {area}, Периметр: {perimeter}")
 
-
-result = CommandLine.parse_input()
-print(result)
+while True:
+    user_input = input("'quit' что-бы выйти, нажмите ENTER что-бы продолжить\n")
+    if user_input == 'quit':
+        break
+    result = CommandLine.parse_input()
+    print(result)
