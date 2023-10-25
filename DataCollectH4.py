@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-# Функция для получения комментариев на странице
 def get_comments_on_page(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -13,7 +12,6 @@ def get_comments_on_page(url):
 
     return comments
 
-# Функция для получения всех комментариев на нескольких страницах
 def get_all_comments(base_url, num_pages):
     all_comments = []
     
@@ -23,13 +21,11 @@ def get_all_comments(base_url, num_pages):
         all_comments.extend(comments)
     
     return all_comments
-
-# Функция для подсчета комментариев по категориям
+    
 def count_comments_by_category(comments):
     category_count = {}
 
     for comment in comments:
-        # Используем первое слово в комментарии как категорию
         words = comment.split()
         if words:
             category = words[0]
@@ -45,18 +41,13 @@ if __name__ == "__main__":
     num_pages = int(input("Введите количество страниц: "))
     
     comments = get_all_comments(base_url, num_pages)
+    category_count = count_comments_by_category(comments)  
     
-    # Подсчет комментариев по категориям
-    category_count = count_comments_by_category(comments)
-    
-    # Запись результата в JSON файл
     with open('comments_by_category.json', 'w', encoding='utf-8') as file:
         json.dump(category_count, file, ensure_ascii=False, indent=4)
 
-    # Открываем JSON-файл и загружаем данные
     with open('comments_by_category.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    # Выводим данные
     print(json.dumps(data, indent=4, ensure_ascii=False))
 
