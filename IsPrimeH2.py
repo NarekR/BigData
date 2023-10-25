@@ -15,10 +15,13 @@ def is_prime(number):
 
     return True
 
-n = int(input("Введите до сколки надо шитать: "))
+def generate_primes(n):
+    for i in range(1, n):
+        if is_prime(i):
+            yield i
 
-    
-for i in range(1, n):
-    if is_prime(i):
-        print(i)
+n = int(input("Введите до сколки надо генерировать: "))
+
+for prime in generate_primes(n):
+    print(prime)
 
